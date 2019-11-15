@@ -30,8 +30,8 @@ class Spotify_Bot(object):
         return
 
     def get_oauth_token(self):
-        scopes = 'playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-private'
-        redired_uri = ''.join([
+        scopes = 'playlist-read-private%20playlist-read-collaborative%20user-read-currently-playing%20user-read-private'
+        redirect_uri = ''.join([
             'https://accounts.spotify.com/en/authorize?',
             f'client_id={os.getenv("SPOTIFY_ID")}',
             '&redirect_uri=https://jvb-spotty-auth.herokuapp.com/success',
@@ -42,7 +42,7 @@ class Spotify_Bot(object):
         d = {
             'grant_type': 'authorization_code',
             'code': os.getenv('SPOTIFY_CODE'),
-            'redirect_uri': redired_uri
+            'redirect_uri': redirect_uri
         }
         h = {
             'Authorization': f'Basic {self.get_spotty_base64()}'
