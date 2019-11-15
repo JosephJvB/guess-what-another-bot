@@ -30,11 +30,11 @@ class Spotify_Bot(object):
         return
 
     def get_oauth_token(self):
-        scopes = 'playlist-read-private%20playlist-read-collaborative%20user-read-currently-playing%20user-read-private'
-        redirect_uri = ''.join([
-            'https://accounts.spotify.com/en/authorize?',
+        scopes = 'playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-private'
+        url = ''.join([
+            'https://accounts.spotify.com/authorize?',
             f'client_id={os.getenv("SPOTIFY_ID")}',
-            '&redirect_uri=https%3A%2F%2Fjvb-spotty-auth.herokuapp.com%2Fsuccess',
+            '&redirect_uri=https://jvb-spotty-auth.herokuapp.com/success/',
             f'&scope={scopes}'
             '&response_type=code'
             # f'&state={state}', # jukebot had this??
