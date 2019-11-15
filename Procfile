@@ -1,0 +1,1 @@
+web: python3 ./spotify_web_auth.py

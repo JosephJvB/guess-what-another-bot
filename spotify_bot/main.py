@@ -5,15 +5,15 @@ import requests
 
 class Spotify_Bot(object):
     def __init__(self):
-        self.get_playlist()
+        self.auth = None
+        # self.get_playlist()
+        self.get_oauth_token()
         return
 
     def get_cc_token(self): # no scopes, basic auth
-        s = f'{os.getenv("SPOTIFY_ID")}:{os.getenv("SPOTIFY_SECRET")}'
-        a = str(base64.b64encode(s.encode('utf-8')), 'utf-8')
         u = 'https://accounts.spotify.com/api/token'
         h = {
-            'Authorization': f'Basic {a}'
+            'Authorization': f'Basic {self.get_spotty_base64()}'
         }
         d = { 'grant_type': 'client_credentials' }
         res = requests.post(u, data=d, headers=h)
@@ -28,6 +28,36 @@ class Spotify_Bot(object):
         print(res)
         print(res.json())
         return
+
+    def get_oauth_token(self):
+        scopes = 'playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-private'
+        redired_uri = ''.join([
+            'https://accounts.spotify.com/en/authorize?',
+            f'client_id={os.getenv("SPOTIFY_ID")}',
+            '&redirect_uri=https://jvb-spotty-auth.herokuapp.com/success',
+            f'&scope={scopes}'
+            '&response_type=code'
+            # f'&state={state}', # jukebot had this??
+        ])
+        d = {
+            'grant_type': 'authorization_code',
+            'code': os.getenv('SPOTIFY_CODE'),
+            'redirect_uri': redired_uri
+        }
+        h = {
+            'Authorization': f'Basic {self.get_spotty_base64()}'
+        }
+        u = 'https://accounts.spotify.com/api/token'
+        res = requests.post(u, data=d, headers=h)
+        print(res)
+        print(res.json())
+        print('DONE')
+        self.auth = res.json()
+        return
+
+    def get_spotty_base64(self):
+        s = f'{os.getenv("SPOTIFY_ID")}:{os.getenv("SPOTIFY_SECRET")}'
+        return str(base64.b64encode(s.encode('utf-8')), 'utf-8')
 
 
 if __name__ == '__main__':

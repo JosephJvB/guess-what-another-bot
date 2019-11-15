@@ -12,6 +12,7 @@ peewee = "*"
 pymysql = "*"
 spotipy = "*"
 requests = "*"
+flask = "*"
 
 [requires]
 python_version = "3.7"
