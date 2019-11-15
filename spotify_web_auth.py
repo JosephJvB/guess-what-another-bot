@@ -26,7 +26,7 @@ def init_spotty_auth():
     url = ''.join([
         'https://accounts.spotify.com/authorize?',
         f'client_id={os.getenv("SPOTIFY_ID")}',
-        '&redirect_uri=https://jvb-spotty-auth.herokuapp.com/success/',
+        '&redirect_uri=https://jvb-spotty-auth.herokuapp.com/success',
         f'&scope={scopes}'
         '&response_type=code'
         # f'&state={state}', # jukebot had this??
