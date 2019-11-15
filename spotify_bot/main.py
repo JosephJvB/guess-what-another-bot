@@ -7,7 +7,8 @@ class Spotify_Bot(object):
     def __init__(self):
         self.auth = None
         # self.get_playlist()
-        self.get_oauth_token()
+        # self.get_oauth_token()
+        #self.refresh()
         return
 
     def get_cc_token(self): # no scopes, basic auth
@@ -30,19 +31,10 @@ class Spotify_Bot(object):
         return
 
     def get_oauth_token(self):
-        scopes = 'playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-private'
-        redirect_uri = ''.join([
-            'https://accounts.spotify.com/authorize?',
-            f'client_id={os.getenv("SPOTIFY_ID")}',
-            '&redirect_uri=https://jvb-spotty-auth.herokuapp.com/success',
-            f'&scope={scopes}'
-            '&response_type=code'
-            # f'&state={state}', # jukebot had this??
-        ])
         d = {
             'grant_type': 'authorization_code',
             'code': os.getenv('SPOTIFY_CODE'),
-            'redirect_uri': redirect_uri
+            'redirect_uri': 'https://jvb-spotty-auth.herokuapp.com/success'
         }
         h = {
             'Authorization': f'Basic {self.get_spotty_base64()}'
@@ -53,6 +45,26 @@ class Spotify_Bot(object):
         print(res.json())
         print('DONE')
         self.auth = res.json()
+        return
+
+    def get_me(self):
+        h = { 'Authorization': f"Bearer {os.getenv('SPOTIFY_ACCESS')}" }
+        u = 'https://api.spotify.com/v1/me/playlists'
+        res = requests.get(u, headers=h)
+        print(res)
+        print(res.json())
+        return
+
+    def refresh(self):
+        d = {
+            'grant_type': 'refresh_token',
+            'refresh_token': os.getenv('SPOTIFY_REFRESH')
+        }
+        h = { 'Authorization': f'Basic {self.get_spotty_base64()}' }
+        u = 'https://accounts.spotify.com/api/token'
+        res = requests.post(u, data=d, headers=h)
+        print(res)
+        print(res.json())
         return
 
     def get_spotty_base64(self):
