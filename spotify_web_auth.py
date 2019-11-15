@@ -33,4 +33,6 @@ def init_spotty_auth():
     ])
     return redirect(url, code=302)
 
-api.run(port=os.getenv('PORT', 3000))
+if __name__ == '__main__':
+    p = int(os.getenv('PORT', 3000))
+    api.run(host='0.0.0.0', port=p)
