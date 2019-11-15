@@ -1,5 +1,9 @@
 # Quizbot
 
+### prog:
+- spotify api auth sucks
+- https://developer.spotify.com/documentation/web-api/reference/playlists/get-a-list-of-current-users-playlists/
+
 ### todo:
 - Spotify api:
     - ping my bot on track change

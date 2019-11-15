@@ -1,14 +1,14 @@
 import time
 import random
-from bot.slack_base import Base
+from slack_bot.base import Base
 
 class Slack_Bot(Base):
     def __init__(self):
         super(Slack_Bot, self).__init__()
         self.answer = (None, None) # emoji, songname
-        # self.handle_new_track()
-        # time.sleep(5)
-        # self.handle_answer()
+        self.handle_new_track()
+        time.sleep(5)
+        self.handle_answer()
 
     def handle_answer(self):
         msg_reactions = self.get_msg_reacts()

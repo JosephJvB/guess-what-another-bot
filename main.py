@@ -1,3 +1,3 @@
-from bot.slack_bot import Slack_Bot
+from slack_bot.main import Slack_Bot
 
 Slack_Bot()
