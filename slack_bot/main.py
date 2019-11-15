@@ -2,6 +2,13 @@ import time
 import random
 from slack_bot.base import Base
 
+emojis = {
+    0: 'one',
+    1: 'two',
+    2: 'three',
+    3: 'four',
+}
+
 class Slack_Bot(Base):
     def __init__(self):
         super(Slack_Bot, self).__init__()
@@ -23,6 +30,7 @@ class Slack_Bot(Base):
         self.post_msg(txt[:-1])
         return
     
+    # likely pass in options from spotify bot
     def handle_new_track(self):
         opts = self.get_opts()
         txt = '*What\'s that track!*\n\n'
@@ -30,7 +38,7 @@ class Slack_Bot(Base):
             txt += f'*{i + 1}.*  "_{o}_"\n'
         self.post_msg(txt)
         for i in range(len(opts)):
-            self.add_msg_react(self.get_emoji(i))
+            self.add_msg_react(emojis.get(i))
         return
 
     # get current song from spotify
@@ -41,12 +49,5 @@ class Slack_Bot(Base):
         opts = [ans, 'song 2', 'song 3', 'song 4'][:4]
         random.shuffle(opts)
         answer_idx = opts.index(ans)
-        self.answer = (self.get_emoji(answer_idx), ans)
+        self.answer = (emojis.get(answer_idx), ans)
         return opts
-
-    def get_emoji(self, n):
-        if n == 0: return 'one'
-        if n == 1: return 'two'
-        if n == 2: return 'three'
-        if n == 3: return 'four'
-        return

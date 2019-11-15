@@ -5,10 +5,10 @@ import requests
 
 class Spotify_Bot(object):
     def __init__(self):
-        t = self.req1()
-        self.req2(t)
+        self.get_playlist()
+        return
 
-    def req1(self):
+    def get_cc_token(self): # no scopes, basic auth
         s = f'{os.getenv("SPOTIFY_ID")}:{os.getenv("SPOTIFY_SECRET")}'
         a = str(base64.b64encode(s.encode('utf-8')), 'utf-8')
         u = 'https://accounts.spotify.com/api/token'
@@ -19,12 +19,15 @@ class Spotify_Bot(object):
         res = requests.post(u, data=d, headers=h)
         return res.json()['access_token']
 
-    def req2(self, t):
-        print(t)
-        u = 'https://api.spotify.com/v1/me/playlists'
-        h = { 'Authorization': f'Bearer {t}' }
+    def get_playlist(self):
+        playlist_id = os.getenv('SPOTIFY_PLAYLIST')
+        u = f'https://api.spotify.com/v1/playlists/{playlist_id}'
+        token = self.get_cc_token()
+        h = { 'Authorization': f'Bearer {token}' }
         res = requests.get(u, headers=h)
+        print(res)
         print(res.json())
+        return
 
 
 if __name__ == '__main__':
