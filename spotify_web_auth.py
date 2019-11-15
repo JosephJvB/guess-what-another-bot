@@ -22,7 +22,7 @@ def succeed():
 def init_spotty_auth():
 #   api.send_static_file("index.js")
 #   return render_template("index.html")
-    scopes = 'playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-private'
+    scopes = 'playlist-read-private%20playlist-read-collaborative%20user-read-currently-playing%20user-read-private'
     url = ''.join([
         'https://accounts.spotify.com/authorize?',
         f'client_id={os.getenv("SPOTIFY_ID")}',

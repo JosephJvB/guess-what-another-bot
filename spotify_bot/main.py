@@ -34,7 +34,7 @@ class Spotify_Bot(object):
         redirect_uri = ''.join([
             'https://accounts.spotify.com/en/authorize?',
             f'client_id={os.getenv("SPOTIFY_ID")}',
-            '&redirect_uri=https://jvb-spotty-auth.herokuapp.com/success',
+            '&redirect_uri=https%3A%2F%2Fjvb-spotty-auth.herokuapp.com%2Fsuccess',
             f'&scope={scopes}'
             '&response_type=code'
             # f'&state={state}', # jukebot had this??
