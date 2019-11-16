@@ -1,6 +1,8 @@
 import os
 import slack
 
+_reacts = ['one', 'two', 'three', 'four']
+
 class Base(object):
     def __init__(self):
         token = os.getenv('SLACK_TOKEN', None)
@@ -10,6 +12,7 @@ class Base(object):
             self.channel = channel
             self.bot_id = bot_id
             self.client = slack.WebClient(token=token)
+            self.msg = None
         else:
             raise Exception('missing env vars')
     
@@ -20,7 +23,7 @@ class Base(object):
         return
 
     def add_msg_react(self, name):
-        if self.msg is None: return
+        if not self.msg: return
         self.client.reactions_add(
             name=name,
             channel=self.msg['channel'],
@@ -28,13 +31,13 @@ class Base(object):
         return
 
     def get_msg_reacts(self):
-        if self.msg is None: return
+        if not self.msg: return
         res = self.client.reactions_get(
             channel=self.channel,
             timestamp=self.msg['ts'])
-        return res['message']['reactions']
+        return [r for r in res['message']['reactions'] if r in _reacts]
 
     def get_user_name(self, user_id):
-        if self.msg is None: return
+        if not self.msg: return
         res = self.client.users_info(user=user_id)
         return res['user']['real_name']

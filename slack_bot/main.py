@@ -23,14 +23,18 @@ class Slack_Bot(Base):
             self.add_msg_react(self.get_emoji(i))
         return
 
-    def post_end_msg(self, emoji, track):
+    def post_end_msg(self, win_emoji, track):
         msg_reacts = self.get_msg_reacts()
-        winner_ids = next(r['users'] for r in msg_reacts if r['name'] == emoji)
-        winner_ids.remove(os.getenv('SLACK_BOT_ID'))
+        users_list = []
+        winner_ids = []
+        for r in msg_reacts:
+            users_list += r['users']
+            if r['name'] == win_emoji:
+                winner_ids = r['users']
+        winner_names = [self.get_user_name(i) for i in winner_ids if users_list.count(i) == 1]
         txt = f'*Answer:* "_{track}_"\n\nWinners:'
-        if len(winner_ids) > 0:
-            for u_id in winner_ids:
-                name = self.get_user_name(u_id)
+        if len(winner_names) > 0:
+            for name in winner_names:
                 txt += f' {name},'
         else: 
             txt +=' No one! '
