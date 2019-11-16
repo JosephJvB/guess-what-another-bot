@@ -2,9 +2,14 @@
 
 ### prog:
 - chill brother
-- exploit fix: only react to one message at once haha
+- exploit fix: only react to one message at once haha. Two solutions:
+    1. use rtm client to respond to on-reaction event
+    2. if someone reacts to more than one answer, exclude them
+- want to do both, except I cant do 1. - cos I can only remove bot reactions, not users reactions :(
 
 ### todo:
+- bug: sometimes reactions are added out of order?
+- bug: this event loop is already running
 1. Redis
     - Leaderboard from redis records
 2. Monday:

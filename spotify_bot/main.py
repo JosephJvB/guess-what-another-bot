@@ -23,7 +23,7 @@ class Spotify_Bot(Auth):
         h = { 'Authorization': f'Bearer {self.auth["access_token"]}' }
         u = 'https://api.spotify.com/v1/me/player/currently-playing'
         res = requests.get(u, headers=h)
-        j = res.json()
-        if j['is_playing'] == False:
+        if res.status_code is not 200:
             return None
-        return j['item']['name']
+
+        return res.json()['item']['name']
