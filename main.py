@@ -10,11 +10,11 @@ from spotify_bot.main import Spotify_Bot
 class Game(object):
     def __init__(self):
         self.timer = None
+        self.thread = None
         self.current_track = ''
         self.answer_emoji = ''
         self.spotify = Spotify_Bot()
         self.slack = Slack_Bot()
-        self.start_game()
     
     def start_game(self):
         print('START GAME IN')
@@ -57,39 +57,28 @@ class Game(object):
         return
 
     def set_timeout(self, t, fn):
-        if self.timer: self.timer.cancel()
+
+        if self.timer and self.thread:
+            self.timer.cancel()
+            self.thread.join()
         self.timer = Timer(t, fn)
-        self.timer.start()
+        self.thread = Thread(target=self.timer.start)
+        self.thread.start()
         return
 
-Game()
+g = Game()
+t = Thread(target=g.start_game)
+t.start()
 
 @slack.RTMClient.run_on(event='message')
 def on_message(**payload):
     print('hi')
-# loop2 = asyncio.new_event_loop()
-# asyncio.set_event_loop(loop2)
-# rtm_client = slack.RTMClient(token=os.getenv('SLACK_TOKEN'))
-# loop2.run_forever(rtm_client.start())
 
-# def on_msg_evt(self, payload):
-#     data = payload['data']
-#     if not data.get('text'): return 
-#     if data['channel'] != self.channel: return
-
-#     if data['text'].startswith('!leaderboard') or data['text'].startswith('!lb'):
-#         lb = self.redis.get_leaderboard()
-#         t = '*Leaderboard:*\n'
-#         for i, u in enumerate(lb):
-#             t += f'*{i + 1}.* {u.name}: *{u.points}*\n'
-#         self.post_msg(t)
-#         return
-
-#     if data['text'].startswith('!points'):
-#         u_id = data['user']
-#         user = self.get_user_name(u_id)
-#         p = self.redis.get_user_points(user)
-#         t = f'*{user}* is on {p}'
-#         t += 'point!' if p == 1 else 'points!'
-#         self.post_msg(t)
-#         return
+l = asyncio.get_event_loop()
+c = slack.RTMClient(token=os.getenv('SLACK_TOKEN'))
+try:
+    l.run_forever(c.start())
+except KeyboardInterrupt:
+    l.close()
+finally:
+    l.close()
