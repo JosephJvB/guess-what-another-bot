@@ -29,6 +29,8 @@ class Game(object):
     def start_round(self, t):
         print('START ROUND IN')
         all_tracks = self.spotify.get_playlist_tracks()
+        if t in all_tracks:
+            all_tracks.remove(t) # if playing from outside the playlist
         track_options = [t, *random.sample(all_tracks, 3)]
         random.shuffle(track_options)
         ans_idx = track_options.index(t)
