@@ -8,9 +8,6 @@ pylint = "*"
 
 [packages]
 slackclient = "*"
-peewee = "*"
-pymysql = "*"
-spotipy = "*"
 requests = "*"
 flask = "*"
 

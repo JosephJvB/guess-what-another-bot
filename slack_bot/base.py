@@ -33,3 +33,8 @@ class Base(object):
             channel=self.channel,
             timestamp=self.msg['ts'])
         return res['message']['reactions']
+
+    def get_user_name(self, user_id):
+        if self.msg is None: return
+        res = self.client.users_info(user=user_id)
+        return res['user']['real_name']

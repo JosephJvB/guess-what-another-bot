@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3613f7e4b2531fcb44a40f01e125ba11dac267a5993bdc52b8b18a9ec1e14033"
+            "sha256": "6219526c75b9d68c328e1e88e5979c0e584e156e9c6dec4bc106dd0ffbe6353c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -164,21 +164,6 @@
             ],
             "version": "==4.5.2"
         },
-        "peewee": {
-            "hashes": [
-                "sha256:f3f5c80c51b632d031f60454accadd84f166453a471bff63093ca674973f2a4e"
-            ],
-            "index": "pypi",
-            "version": "==3.11.2"
-        },
-        "pymysql": {
-            "hashes": [
-                "sha256:3943fbbbc1e902f41daf7f9165519f140c4451c179380677e6a848587042561a",
-                "sha256:d8c059dcd81dedb85a9f034d5e22dcb4442c0b201908bede99e306d65ea7c8e7"
-            ],
-            "index": "pypi",
-            "version": "==0.9.3"
-        },
         "requests": {
             "hashes": [
                 "sha256:11e007a8a2aa0323f5a921e9e6a2d7e4e67d9877e85773fba9ba6419025cbeb4",
@@ -194,13 +179,6 @@
             ],
             "index": "pypi",
             "version": "==2.3.1"
-        },
-        "spotipy": {
-            "hashes": [
-                "sha256:4b05da481b5c5dd4d1da8c0f0d13ca805dde037db648d12be866244b19501ed1"
-            ],
-            "index": "pypi",
-            "version": "==2.4.4"
         },
         "urllib3": {
             "hashes": [

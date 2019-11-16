@@ -1,15 +1,11 @@
 # Quizbot
 
 ### prog:
-- spotify api auth sucks
-- https://developer.spotify.com/documentation/web-api/reference/playlists/get-a-list-of-current-users-playlists/
+- chill brother
+- exploit fix: only react to one message at once haha
 
 ### todo:
-1. Spotify api:
-    - ping my bot on track change
-    - get list of songs from spotify
-    - maybe I have to Authorize bot with my account just ONE time, and can then use refresh token for further auth. It SEEMS as though that is how Jukebot works, from the outside. TODO: re-add Jukebot and take note of auth steps
-2. Redis
+1. Redis
     - Leaderboard from redis records
 
 
