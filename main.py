@@ -9,7 +9,6 @@ class Game(object):
     def __init__(self):
         self.spotify = Spotify_Bot()
         self.slack = Slack_Bot()
-        self.opts = []
         self.current_track = ''
         self.answer_emoji = ''
         self.start_game()
@@ -31,7 +30,7 @@ class Game(object):
         print('START ROUND IN')
         all_tracks = self.spotify.get_playlist_tracks()
         if t in all_tracks:
-            all_tracks.remove(t) # if playing from outside the playlist
+            all_tracks.remove(t)
         track_options = [t, *random.sample(all_tracks, 3)]
         random.shuffle(track_options)
         ans_idx = track_options.index(t)
