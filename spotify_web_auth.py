@@ -12,7 +12,6 @@ def succeed():
     d = {
         'all:': request.args,
         'code:': request.args.get('code'),
-        'state:': request.args.get('state'),
         'error:': request.args.get('error'),
     }
     print(d)

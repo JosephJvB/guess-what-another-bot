@@ -7,7 +7,13 @@
 ### todo:
 1. Redis
     - Leaderboard from redis records
-
+2. Monday:
+    - spin up web dynos
+    - get grant to auth his account
+    - save env vars in heroku
+        - SPOTIFY_CODE
+        - SPOTIFY_ACCESS
+        - SPOTIFY_REFRESH
 
 ### tech:
 - Slackbot
