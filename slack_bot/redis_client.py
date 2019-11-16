@@ -24,3 +24,6 @@ class Redis_Client(object):
                 'points': int(vals[i])
             })
         return scores
+
+    def get_user_points(self, user):
+        return self.redis.get(user)

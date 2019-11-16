@@ -5,8 +5,8 @@ _reacts = ['one', 'two', 'three', 'four']
 
 class Base(object):
     def __init__(self):
-        token = os.getenv('SLACK_TOKEN', None)
-        channel = os.getenv('SLACK_CHANNEL', None)
+        token = os.getenv('SLACK_TOKEN')
+        channel = os.getenv('SLACK_CHANNEL')
         if token and channel:
             self.channel = channel
             self.client = slack.WebClient(token=token)
