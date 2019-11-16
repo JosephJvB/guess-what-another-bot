@@ -3,7 +3,7 @@ import time
 import random
 from slack_bot.base import Base
 
-emojis = {
+_emojis = {
     0: 'one',
     1: 'two',
     2: 'three',
@@ -32,7 +32,7 @@ class Slack_Bot(Base):
             if r['name'] == win_emoji:
                 winner_ids = r['users']
         winner_names = [self.get_user_name(i) for i in winner_ids if users_list.count(i) == 1]
-        txt = f'*Answer:* "_{track}_"\n\nWinners:'
+        txt = f'*Answer:* "_{track}_"\n\n*Winners:*'
         if len(winner_names) > 0:
             for name in winner_names:
                 txt += f' {name},'
@@ -42,4 +42,4 @@ class Slack_Bot(Base):
         return
 
     def get_emoji(self, n):
-        return emojis.get(n)
+        return _emojis.get(n)

@@ -7,14 +7,12 @@ class Base(object):
     def __init__(self):
         token = os.getenv('SLACK_TOKEN', None)
         channel = os.getenv('SLACK_CHANNEL', None)
-        bot_id = os.getenv('SLACK_BOT_ID', None)
-        if token is not None or channel is not None or bot_id is not None:
+        if token and channel:
             self.channel = channel
-            self.bot_id = bot_id
             self.client = slack.WebClient(token=token)
             self.msg = None
         else:
-            raise Exception('missing env vars')
+            raise Exception('Slack env vars missing')
     
     def post_msg(self, text):
         self.msg = self.client.chat_postMessage(
@@ -35,7 +33,7 @@ class Base(object):
         res = self.client.reactions_get(
             channel=self.channel,
             timestamp=self.msg['ts'])
-        return [r for r in res['message']['reactions'] if r in _reacts]
+        return [r for r in res['message']['reactions'] if r['name'] in _reacts]
 
     def get_user_name(self, user_id):
         if not self.msg: return

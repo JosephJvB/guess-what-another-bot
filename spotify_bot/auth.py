@@ -8,12 +8,23 @@ import requests
 
 class Auth(object):
     def __init__(self):
-        self.auth = None
+        r = os.getenv('SPOTIFY_REFRESH')
+        s_id = os.getenv('SPOTIFY_ID')
+        s_secret = os.getenv('SPOTIFY_SECRET')
+        s_code = os.getenv('SPOTIFY_CODE')
+        if r and s_id and s_secret and s_code:
+            self.auth = None
+            self.refresh = r
+            self.s_id = s_id
+            self.s_secret = s_secret
+            self.s_code = s_code
+        else:
+            raise Exception('Spotify auth vars missing')
 
     def refresh_auth(self):
         d = {
             'grant_type': 'refresh_token',
-            'refresh_token': os.getenv('SPOTIFY_REFRESH')
+            'refresh_token': self.refresh
         }
         h = { 'Authorization': self.get_basic_auth() }
         u = 'https://accounts.spotify.com/api/token'
@@ -25,7 +36,7 @@ class Auth(object):
     def get_oauth_token(self): # only need once..
         d = {
             'grant_type': 'authorization_code',
-            'code': os.getenv('SPOTIFY_CODE'),
+            'code': self.s_code,
             'redirect_uri': 'https://jvb-spotty-auth.herokuapp.com/success'
         }
         h = { 'Authorization': self.get_basic_auth() }
@@ -43,7 +54,7 @@ class Auth(object):
         return res.json()['access_token']
 
     def get_basic_auth(self):
-        s = f'{os.getenv("SPOTIFY_ID")}:{os.getenv("SPOTIFY_SECRET")}'
+        s = f'{self.s_id}:{self.s_secret}'
         token = str(base64.b64encode(s.encode('utf-8')), 'utf-8')
         return f'Basic {token}'
 
