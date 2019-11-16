@@ -19,6 +19,7 @@ class Game(object):
         t = self.spotify.get_current_track()
         if t == None:
             Timer(60, self.start_game).start()
+            print('START GAME OUT: NO SONG PLAYING')
             return
 
         self.start_round(t)
@@ -46,12 +47,13 @@ class Game(object):
         t = self.spotify.get_current_track()
         if t == self.current_track:
             Timer(15, self.check_round_end).start()
+            print('CHECK ROUND OUT: NO NEW SONG')
             return
         self.slack.post_end_msg(
             self.answer_emoji,
             self.current_track)
         self.start_round(t)
-        print('CHECK ROUND OUT')
+        print('CHECK ROUND OUT: NEW SONG, NEW ROUND')
         return
         
 Game()
