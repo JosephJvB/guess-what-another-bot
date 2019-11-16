@@ -2,6 +2,7 @@ import os
 import time
 import random
 from slack_bot.base import Base
+from slack_bot.redis_client import Redis_Client
 
 _emojis = {
     0: 'one',
@@ -13,6 +14,7 @@ _emojis = {
 class Slack_Bot(Base):
     def __init__(self):
         super(Slack_Bot, self).__init__()
+        self.redis = Redis_Client()
 
     def start_round_msg(self, opts):
         txt = '*What\'s that track?*\n\n'
@@ -39,6 +41,7 @@ class Slack_Bot(Base):
         else: 
             txt +=' No one! '
         self.post_msg(txt[:-1])
+        self.redis.save_winners(winner_names)
         return
 
     def get_emoji(self, n):

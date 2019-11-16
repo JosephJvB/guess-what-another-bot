@@ -17,7 +17,7 @@ class Game(object):
         print('START GAME IN')
         t = self.spotify.get_current_track()
         if t == None:
-            Timer(30, self.start_game).start()
+            Timer(15, self.start_game).start()
             print('START GAME OUT: NO SONG PLAYING')
             return
 
