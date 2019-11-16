@@ -1,10 +1,15 @@
 # Quizbot
 
 ### prog:
-- make output msgs prettier
+- Run game loop and rtm client at same time
+    - Joe learns about blocking function calls..ouch the learning hurts
+    - Works: but spawns threads on new round up to a cap of ~24
+    - I dont really know why
+    - I was always spawning threads, before I was doing Game() and RTM at same time..
+    - so I shouldnt worry? unsure
 
 ### todo:
-- figure out event loop so I can use rtm client for points and leaderboard cmd
+- make output msgs prettier
 - bug: this event loop is already running
 2. Monday:
     - spin up web dynos
