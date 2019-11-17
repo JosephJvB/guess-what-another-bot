@@ -1,12 +1,13 @@
 import os
 from threading import Thread
 import slack
-
 from game import Game
 
-@slack.RTMClient.run_on(event='message')
-def on_message(**payload):
-    print('hi') # todo
+
+# # todo
+# @slack.RTMClient.run_on(event='message')
+# def on_message(**payload):
+#     print('hi')
 
 try:
     g = Game()

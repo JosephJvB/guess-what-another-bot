@@ -21,8 +21,10 @@ class Slack_Bot(Base):
         for i, o in enumerate(opts):
             txt += f'*{i + 1}.*  "_{o}_"\n'
         self.post_msg(txt)
-        for i in range(len(opts)):
-            self.add_msg_react(self.get_emoji(i))
+        self.add_msg_react(self.get_emoji(0))
+        self.add_msg_react(self.get_emoji(1))
+        self.add_msg_react(self.get_emoji(2))
+        self.add_msg_react(self.get_emoji(3))
         return
 
     def post_end_msg(self, win_emoji, track):

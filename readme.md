@@ -1,24 +1,15 @@
 # Quizbot
 
+thought: whom game and song guess game are saving points in different databases. To a user that is confusing. Im gonna have to resolve that, either merge game points or remove whom.
+Merging means using shared redis database
+
 ### prog:
-- Run game loop and rtm client at same time
-    - Joe learns about blocking function calls..ouch the learning hurts
-    - Works: but spawns threads on new round up to a cap of ~24
-    - I dont really know why
-    - I was always spawning threads, before I was doing Game() and RTM at same time..
-    - so I shouldnt worry? unsure
+- Game live in office
 
 ### todo:
+- !points and !leaderboard command
 - make output msgs prettier
-- bug: this event loop is already running
-2. Monday:
-    - spin up web dynos
-    - get grant to auth his account
-    - save env vars in heroku
-        - SPOTIFY_CODE
-        - SPOTIFY_ACCESS
-        - SPOTIFY_REFRESH
-        etc etc
+- scale worker dyno on and off with cronjob
 
 ### tech:
 - Slackbot

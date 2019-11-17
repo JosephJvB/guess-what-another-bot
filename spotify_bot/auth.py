@@ -12,7 +12,7 @@ class Auth(object):
         s_id = os.getenv('SPOTIFY_ID')
         s_secret = os.getenv('SPOTIFY_SECRET')
         s_code = os.getenv('SPOTIFY_CODE')
-        if r and s_id and s_secret and s_code:
+        if r and s_id and s_secret:
             self.auth = None
             self.refresh = r
             self.s_id = s_id
@@ -34,6 +34,8 @@ class Auth(object):
         return
 
     def get_oauth_token(self): # only need once..
+        if not self.s_code:
+            raise Exception('NO SPOTIFY AUTH CODE')
         d = {
             'grant_type': 'authorization_code',
             'code': self.s_code,
@@ -65,3 +67,7 @@ class Auth(object):
             return True
         else:
             return False
+
+# if __name__ == "__main__":
+#     a = Auth()
+#     a.get_oauth_token()
