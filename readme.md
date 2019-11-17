@@ -1,13 +1,18 @@
 # Quizbot
 
-thought: whom game and song guess game are saving points in different databases. To a user that is confusing. Im gonna have to resolve that, either merge game points or remove whom.
-Merging means using shared redis database
-
 ### prog:
-- Game live in office
 
 ### todo:
 - !points and !leaderboard command
+    - whom and song guess are in seperate databases.
+    - wanna make redis shared
+    - migrate existing mysql data to redis
+    - connect /whom to shared
+- Game design issues:
+    - /whom @user ruins guessing game: /whom prints song title
+    - /current track ruins game too
+    - disable /current & /whom for jukebot
+    - re-implement whomgame as !whom @user
 - make output msgs prettier
 - scale worker dyno on and off with cronjob
 
