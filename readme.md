@@ -9,10 +9,13 @@
     - migrate existing mysql data to redis
     - connect /whom to shared
 - Game design issues:
-    - /whom @user ruins guessing game: /whom prints song title
-    - /current track ruins game too
-    - disable /current & /whom for jukebot
-    - re-implement whomgame as !whom @user
+    1. /whom
+        - /whom @user ruins guessing game: /whom prints song title
+        - /current track ruins game too
+        - disable /current & /whom for jukebot
+        - re-implement whomgame as !whom @user
+    2. public reactions
+        - if everyone can see reactions, you're just gonna pick the number that everyone has reacted to...
 - make output msgs prettier
 - scale worker dyno on and off with cronjob
 
