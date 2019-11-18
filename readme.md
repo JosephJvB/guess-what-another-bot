@@ -1,21 +1,14 @@
 # Quizbot
 
 ### prog:
-
-### todo:
-- !points and !leaderboard command
-    - whom and song guess are in seperate databases.
-    - wanna make redis shared
-    - migrate existing mysql data to redis
-    - connect /whom to shared
 - Game design issues:
-    1. /whom
-        - /whom @user ruins guessing game: /whom prints song title
-        - /current track ruins game too
-        - disable /current & /whom for jukebot
-        - re-implement whomgame as !whom @user
+    1. disable slash commands: remake !whom @user
+        - dunno how to
+        - other option: remove jukebot and recreate all the commands, kind of a big yikes..
     2. public reactions
         - if everyone can see reactions, you're just gonna pick the number that everyone has reacted to...
+
+### todo:
 - make output msgs prettier
 - scale worker dyno on and off with cronjob
 
@@ -24,6 +17,7 @@
 - Spotify API
 - Heroku
 - Redis
+- http://everynoise.com/ ?
 
 ### flow:
 - Track starts

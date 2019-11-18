@@ -12,7 +12,7 @@ from game import Game
 try:
     g = Game()
     Thread(target=g.start_game, daemon=True).start()
-    slack.RTMClient(token=os.getenv('SLACK_TOKEN')).start()
+    # slack.RTMClient(token=os.getenv('SLACK_TOKEN')).start()
 except KeyboardInterrupt:
     pass
 finally:
