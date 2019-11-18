@@ -6,7 +6,11 @@ import requests
 
 def main(state):
     h_key = os.getenv('HEROKU_KEY')
-    h = { 'Authorization': f'Bearer {h_key}' }
+    h = {
+        'Authorization': f'Bearer {h_key}',
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.heroku+json; version=3'
+    }
     q = 1 if state == 'on' else 0
     d = { 'quantity': q }
     u = 'https://api.heroku.com/apps/jvb-spotty-auth/formation/worker'
