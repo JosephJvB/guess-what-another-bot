@@ -1,6 +1,11 @@
 # Quizbot
 
 ### prog:
+- scale worker dyno on and off with cronjob
+    - https://realpython.com/automatically-scale-heroku-dynos/
+    - https://gist.github.com/mjhea0/e1436b693cc56ca82277
+
+### blocked
 - Game design issues:
     1. disable slash commands: remake !whom @user
         - dunno how to
@@ -10,7 +15,6 @@
 
 ### todo:
 - make output msgs prettier
-- scale worker dyno on and off with cronjob
 
 ### tech:
 - Slackbot
