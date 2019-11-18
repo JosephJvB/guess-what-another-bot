@@ -1,5 +1,7 @@
 import os
+import base64
 from flask import Flask, render_template, redirect, request
+import requests
 
 api = Flask(
   __name__
@@ -7,15 +9,26 @@ api = Flask(
 #   static_folder="" # js/css
 )
 
+s_id = os.getenv('SPOTIFY_ID')
+s_secret = os.getenv('SPOTIFY_SECRET')
+token = str(base64.b64encode(f'{s_id}:{s_secret}'.encode('utf-8')), 'utf-8')
+basic_auth = f'Basic {token}'
+
 @api.route('/success', methods=['GET']) 
 def succeed():
+    print(request.args)
     d = {
-        'all:': request.args,
-        'code:': request.args.get('code'),
-        'error:': request.args.get('error'),
+        'grant_type': 'authorization_code',
+        'code': request.args.get('code'),
+        'redirect_uri': 'https://jvb-spotty-auth.herokuapp.com/success'
     }
-    print(d)
-    return d
+    h = { 'Authorization': basic_auth }
+    u = 'https://accounts.spotify.com/api/token'
+    res = requests.post(u, data=d, headers=h)
+    print(res)
+    j = res.json()
+    print('oauth success:', j)
+    return j
 
 @api.route('/', methods=['GET'])
 def init_spotty_auth():

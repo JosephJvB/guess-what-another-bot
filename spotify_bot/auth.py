@@ -33,22 +33,7 @@ class Auth(object):
         self.last_refresh = time.time()
         return
 
-    def get_oauth_token(self): # only need once..
-        if not self.s_code:
-            raise Exception('NO SPOTIFY AUTH CODE')
-        d = {
-            'grant_type': 'authorization_code',
-            'code': self.s_code,
-            'redirect_uri': 'https://jvb-spotty-auth.herokuapp.com/success'
-        }
-        h = { 'Authorization': self.get_basic_auth() }
-        u = 'https://accounts.spotify.com/api/token'
-        res = requests.post(u, data=d, headers=h)
-        print(res)
-        print('oauth success:', res.json())
-        return
-
-    def get_cc_token(self): # no scopes, basic auth
+    def get_cc_token(self): # auth with no scopes, for get playlist
         u = 'https://accounts.spotify.com/api/token'
         h = { 'Authorization': self.get_basic_auth() }
         d = { 'grant_type': 'client_credentials' }
@@ -67,7 +52,3 @@ class Auth(object):
             return True
         else:
             return False
-
-# if __name__ == "__main__":
-#     a = Auth()
-#     a.get_oauth_token()
