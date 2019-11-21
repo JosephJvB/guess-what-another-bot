@@ -1,8 +1,9 @@
 import os
 import time
 import random
-from slack_bot.base import Base
+# from slack_bot.base import Base
 from slack_bot.redis_client import Redis_Client
+from slack_bot.slack_sessions import Slack_Sessions
 
 _emojis = {
     0: 'one',
@@ -11,7 +12,7 @@ _emojis = {
     3: 'four',
 }
 
-class Slack_Bot(Base):
+class Slack_Bot(Slack_Sessions):
     def __init__(self):
         super(Slack_Bot, self).__init__()
         self.redis = Redis_Client()
