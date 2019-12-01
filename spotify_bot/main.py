@@ -8,14 +8,26 @@ class Spotify_Bot(Auth):
         self.refresh_auth()
 
     def get_playlist_tracks(self):
+        t = []
         token = self.get_cc_token()
         h = { 'Authorization': f'Bearer {token}' }
         playlist_id = os.getenv('SPOTIFY_PLAYLIST')
         u = f'https://api.spotify.com/v1/playlists/{playlist_id}'
         res = requests.get(u, headers=h)
         j = res.json()
-        names = [t['track']['name'] for t in j['tracks']['items']]
-        return names
+        t += j['tracks']['items']
+        n = j['tracks']['next']
+        try:
+            while n:
+                x = requests.get(n, headers=h).json()
+                t += x['items']
+                n = x['next']
+                print(len(t))
+        except:
+            return
+        return t
+        # names = [(t['track']['name'], t['track']['artists'][0]['name']) for t in j['tracks']['items']]
+        # return names
 
     def get_current_track(self):
         if self.need_refresh(): 
