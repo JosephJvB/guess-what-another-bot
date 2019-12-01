@@ -29,7 +29,7 @@ class Game(object):
     def start_round(self, t):
         self.log_game_state('START ROUND IN')
         to = int(os.getenv('ROUND_TIMEOUT'))
-        all_tracks = self.spotify.get_playlist_tracks()
+        all_tracks = [t['track']['name'] for t in self.spotify.get_playlist_tracks()]
         if t in all_tracks:
             all_tracks.remove(t)
         track_options = [t, *random.sample(all_tracks, 3)]
